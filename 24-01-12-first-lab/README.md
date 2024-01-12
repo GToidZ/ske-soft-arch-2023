@@ -2,7 +2,7 @@
 
 This lab session is to setup Laravel and implement the chapter 2 of Terry Matula's Laravel Cookbook[^1].
 
-The cookbook however was made for Laravel 3.x, there are missing features in Laravel 10.x. I intend to implement the legacy syntax in the book with modern practices. Such as, using HTML `form` and `input` tags to create form.
+The cookbook however was made for Laravel 3.x, there are missing features in Laravel 10.x. I intend to implement the legacy syntax in the book with modern practices. Such as, using HTML `form` and `input` tags to create form, or directory structure changes. 
 
 # Laravel Default README
 
