@@ -2,7 +2,12 @@
 
 This lab session is to setup Laravel and implement the chapter 2 of Terry Matula's Laravel Cookbook[^1].
 
-The cookbook however was made for Laravel 3.x, there are missing features in Laravel 10.x. I intend to implement the legacy syntax in the book with modern practices. Such as, using HTML `form` and `input` tags to create form, or directory structure changes. 
+The cookbook however was made for Laravel 3.x, there are missing features in Laravel 10.x. I intend to implement the legacy syntax in the book with modern practices. Such as, using HTML `form` and `input` tags to create form, or directory structure changes.
+
+## Significant Changes
+
+The cookbook says to create new view in `app/views`. Where is it?
+> The `views` directory is actually in `resources` folder.
 
 # Laravel Default README
 
