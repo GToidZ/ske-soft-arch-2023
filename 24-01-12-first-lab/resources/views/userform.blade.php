@@ -24,6 +24,8 @@
 
     <label for="password_confirm">Retype your Password</label>
     <input type="password" id="password_confirm" name="password_confirm" />
+
+    <input type="text" id="no_email" name="no_email" style="display: none;" />
     
     <label for="color">Favorite Color</label>
     <select name="color" id="color">

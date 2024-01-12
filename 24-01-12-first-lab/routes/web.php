@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Validator;
 |
 */
 
+// I'm not doing localized strings.
+// See here, if you need: https://laravel.com/docs/10.x/localization
+
 Route::get('/', function () {
     return "Hello!";
 });
@@ -25,11 +28,22 @@ Route::get('/userform', function () {
 Route::post('/userform', function () {
 
     // Create a validator for every input from request.
-    $validator = Validator::make(request()->all(), array(
-        'email' => 'required|email|different:username',
-        'username' => 'required|min:6',
-        'password' => 'required|same:password_confirm|min:8'
-    ));
+    $validator = Validator::make(
+        request()->all(),
+        array(
+            // Validation rules
+            'email' => 'required|email|different:username',
+            'username' => 'required|min:6',
+            'password' => 'required|same:password_confirm|min:8',
+            'no_email' => 'prohibited' // Instead of creating your own honey_pot, use existing implementation.
+        ),
+        array(
+            // Messages when error
+            'min' => 'The :attribute is way too short! It must be at least :min character(s) in length.',
+            'username.required' => 'Please specify your username.',
+            'prohibited' => 'Nothing should be in this field.'
+        )
+    );
 
     if ($validator->fails()) {
         return redirect('userform')

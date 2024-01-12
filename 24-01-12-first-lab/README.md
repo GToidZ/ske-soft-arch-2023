@@ -6,8 +6,20 @@ The cookbook however was made for Laravel 3.x, there are missing features in Lar
 
 ## Significant Changes
 
+How do you actually create new routes?
+> Go to `routes/web.php` instead of creating `routes.php`
+
 The cookbook says to create new view in `app/views`. Where is it?
 > The `views` directory is actually in `resources` folder.
+
+The **"Creating a custom error message"** section in cookbook?
+> I actually used it with `userform`. It's really redundant, just to make another forms.
+
+The **"Adding honey pot to form"** section in cookbook?
+> Read the change above.
+
+Where's the `honey_pot` validator?
+> We can use `prohibited` instead of creating a new one, it's more faster.
 
 # Laravel Default README
 
