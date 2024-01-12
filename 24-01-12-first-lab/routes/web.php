@@ -42,8 +42,38 @@ Route::post('/userform', function () {
 
 });
 
-Route::get('userresults', function () {
+Route::get('/userresults', function () {
     return dd(request()->old());
 });
 
 // TODO: File uploader
+Route::get('/fileform', function () {
+    return view('fileform');
+});
+
+Route::post('/fileform', function () {
+
+    $validator = Validator::make(request()->all(), array(
+        'myfile' => 'mimes:jpg,bmp,png'
+    ));
+
+    if ($validator->fails()) {
+        return redirect('fileform')
+            ->withErrors($validator)
+            ->withInput();
+    }
+
+    /* Request#file() returns Symfony's UploadedFile.
+    Request ref: https://laravel.com/api/10.x/Illuminate/Support/Facades/Request.html
+    File#guessExtension() ref: https://github.com/symfony/symfony/blob/7.0/src/Symfony/Component/HttpFoundation/File/File.php#L53
+    */
+    $file = request()->file('myfile');
+    $ext = $file->guessExtension();
+
+    // File#move() ref: https://github.com/symfony/symfony/blob/7.0/src/Symfony/Component/HttpFoundation/File/File.php#L85
+    if ($file->move('files', $file->getClientOriginalName() . '.' . uniqid() . '.' . $ext)) {
+        return 'Success';
+    }
+    return 'Error';
+
+});
