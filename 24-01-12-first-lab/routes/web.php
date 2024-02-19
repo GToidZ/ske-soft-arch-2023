@@ -1,5 +1,6 @@
 <?php
 
+use App\Libraries\Captcha;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
 
@@ -60,7 +61,6 @@ Route::get('/userresults', function () {
     return dd(request()->old());
 });
 
-// TODO: File uploader
 Route::get('/fileform', function () {
     return view('fileform');
 });
@@ -90,4 +90,44 @@ Route::post('/fileform', function () {
     }
     return 'Error';
 
+});
+
+Route::get('/autocomplete', function () {
+    return view('autocomplete');
+});
+
+Route::get('/getdata', function () {
+    $term = strtolower(request()->input('term'));
+    $data = array(
+        'R' => 'Red',
+        'O' => 'Orange',
+        'Y' => 'Yellow',
+        'G' => 'Green',
+        'B' => 'Blue',
+        'P' => 'Purple'
+    );
+
+    $return_arr = array();
+    foreach ($data as $k => $v) {
+        if (strpos(strtolower($v), $term) !== FALSE) {
+            $return_arr[] = array('value' => $v, 'id' => $k);
+        }
+    }
+
+    return response()->json($return_arr);
+});
+
+Route::get('/captcha', function () {
+    $captcha = new Captcha;
+    $capt = $captcha->make();
+    return view('captcha')->with('capt', $capt);
+});
+
+Route::post('/captcha', function () {
+    if (session()->get('answer') !== request()->input('captcha')) {
+        return redirect('/captcha')
+            ->with('captcha_result', 'Not match!');
+    }
+    return redirect('/captcha')
+            ->with('captcha_result', 'Match!');
 });

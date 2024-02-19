@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Task;
+use App\Singletons\FacebookConnector;
 
 class TaskController extends Controller
 {
@@ -29,5 +30,19 @@ class TaskController extends Controller
         ]);
 
         return redirect('/tasks');
+    }
+
+    public function publishToFB(Request $req, string $taskId) {
+        $task = Task::whereId($taskId)->first();
+        if (!$task) {
+            abort(404);
+        }
+
+        $fbConnector = FacebookConnector::getInstance();
+        if (!$fbConnector->isLoggedIn()) {
+            return redirect(FacebookConnector::buildAuthURL(csrf_token()));
+        }
+
+        return $fbConnector->post($task);
     }
 }
